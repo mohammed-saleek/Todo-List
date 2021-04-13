@@ -51,6 +51,16 @@ class TaskList(LoginRequiredMixin, ListView):
     context_object_name = 'Tasks'
     template_name = 'task/task_list.html'
 
+    #To get user-specific data
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #Context data
+        #context['colour'] = 'red'
+        #in html page use : {{colour}}
+        context['Tasks'] = context['Tasks'].filter(user = self.request.user)
+        context['count'] = context['Tasks'].filter(complete = False).count()
+        return context
+
 #Class for listing specific task
 class TaskDetail(LoginRequiredMixin,DetailView):
     model = Task
@@ -60,14 +70,20 @@ class TaskDetail(LoginRequiredMixin,DetailView):
 #Class for creating a task
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
-    #fileds = ['title','description']
-    fields = '__all__'
+    fields = ['title','description','complete']
+    #fields = '__all__'
     success_url = reverse_lazy('tasks')
+
+    #Only a User Can Create Task for them and not for others, restriction
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
 
 #Class for updating a Task
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
-    fields = '__all__'
+    fields = ['title','description','complete']
+    #fields = '__all__'
     success_url = reverse_lazy('tasks')
 
 #Class for deleting a Task
