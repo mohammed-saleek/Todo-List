@@ -1,0 +1,22 @@
+<center>
+  <h1>My Todo List App</h1>
+</center>
+<table>
+  <br>
+  <br>
+  <tr>
+    <td>
+      <h3>Items</h3>
+    </td>
+  </tr>
+  {% for task in Tasks %}
+  <tr>
+    <td>
+      <h3>{{task.title}}</h3>
+    </td>
+    <td><a href="{% url 'task' task.id %}">View</a></td>
+  </tr>
+  {% empty %}
+  <h3>No More Pending Tasks</h3>
+  {% endfor %}
+</table>
