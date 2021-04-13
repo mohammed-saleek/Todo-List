@@ -1,14 +1,14 @@
 <center>
   <h1>My Todo List App</h1>
 </center>
+<a href="{% url "task-create" %}">Add Task</a>
+<br>
+<br>
 <table>
-  <br>
-  <br>
-  <a href="{% url "task-create" %}">Add Task</a>
   <tr>
-    <td>
-      <h3>Items</h3>
-    </td>
+      <th><h3>Items</h3></th>
+      <th></th>
+      <th></th>
   </tr>
   {% for task in Tasks %}
   <tr>
@@ -16,6 +16,7 @@
       <h3>{{task.title}}</h3>
     </td>
     <td><a href="{% url 'task' task.id %}">View</a></td>
+    <td><a href="{% url 'task-update' task.id %}">Update</a></td>
   </tr>
   {% empty %}
   <h3>No More Pending Tasks</h3>
