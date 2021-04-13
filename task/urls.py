@@ -7,9 +7,13 @@ from django.urls import path
 #    path('', views.tasklist, name = 'task')]
 
 #Routes for Class Based View
-from . views import TaskList, TaskDetail, TaskCreate, TaskUpdate, TaskDelete
+from . views import TaskList, TaskDetail, TaskCreate, TaskUpdate, TaskDelete, CustomLoginView
+#Importing for user Logout
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
+    path('login/', CustomLoginView.as_view(), name =  'login'),
+    path('logout/', LogoutView.as_view(next_page = 'login'), name =  'logout'),
     path('', TaskList.as_view(), name = 'tasks'),
     path('task/<int:pk>',TaskDetail.as_view(), name = 'task'),
     path('task-create/',TaskCreate.as_view(), name = 'task-create'),

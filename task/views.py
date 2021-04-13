@@ -6,8 +6,12 @@ from django.shortcuts import render
 #For reverse_url
 from django.urls import reverse_lazy
 
+
+
 #For Class Based views
 
+#For Django Authentication
+from django.contrib.auth.views import LoginView
 #For listing all tasks
 from django.views.generic.list import ListView
 #For listing a Specific Task
@@ -29,6 +33,15 @@ from .models import Task
 #    return HttpResponse('To Do List')
 
 #Class based views
+
+#Class for Customer Authentication
+class CustomLoginView(LoginView):
+    template_name = 'task/login.html'
+    fields = '__all__'
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('tasks')
 
 #Class for listing all tasks
 class TaskList(ListView):
