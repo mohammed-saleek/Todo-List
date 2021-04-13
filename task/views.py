@@ -22,6 +22,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic.edit import UpdateView
 #For Deleting a Task
 from django.views.generic.edit import DeleteView
+#Restricting Pages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 #importing model class
 from .models import Task
@@ -44,32 +46,32 @@ class CustomLoginView(LoginView):
         return reverse_lazy('tasks')
 
 #Class for listing all tasks
-class TaskList(ListView):
+class TaskList(LoginRequiredMixin, ListView):
     model = Task
     context_object_name = 'Tasks'
     template_name = 'task/task_list.html'
 
 #Class for listing specific task
-class TaskDetail(DetailView):
+class TaskDetail(LoginRequiredMixin,DetailView):
     model = Task
     context_object_name = 'Task'
     template_name = 'task/task.html'
 
 #Class for creating a task
-class TaskCreate(CreateView):
+class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
     #fileds = ['title','description']
     fields = '__all__'
     success_url = reverse_lazy('tasks')
 
 #Class for updating a Task
-class TaskUpdate(UpdateView):
+class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
     fields = '__all__'
     success_url = reverse_lazy('tasks')
 
 #Class for deleting a Task
-class TaskDelete(DeleteView):
+class TaskDelete(LoginRequiredMixin, DeleteView):
     model = Task
     context_object_name = 'task'
     success_url = reverse_lazy('tasks')
