@@ -9,6 +9,7 @@
       <th><h3>Items</h3></th>
       <th></th>
       <th></th>
+      <th></th>
   </tr>
   {% for task in Tasks %}
   <tr>
@@ -17,6 +18,7 @@
     </td>
     <td><a href="{% url 'task' task.id %}">View</a></td>
     <td><a href="{% url 'task-update' task.id %}">Update</a></td>
+    <td><a href="{% url 'task-delete' task.id %}">Delete</a></td>
   </tr>
   {% empty %}
   <h3>No More Pending Tasks</h3>

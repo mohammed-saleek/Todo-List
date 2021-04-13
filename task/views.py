@@ -16,6 +16,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
 #For Updating a Task
 from django.views.generic.edit import UpdateView
+#For Deleting a Task
+from django.views.generic.edit import DeleteView
 
 #importing model class
 from .models import Task
@@ -51,4 +53,10 @@ class TaskCreate(CreateView):
 class TaskUpdate(UpdateView):
     model = Task
     fields = '__all__'
+    success_url = reverse_lazy('tasks')
+
+#Class for deleting a Task
+class TaskDelete(DeleteView):
+    model = Task
+    context_object_name = 'task'
     success_url = reverse_lazy('tasks')
