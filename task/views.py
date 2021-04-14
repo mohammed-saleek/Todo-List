@@ -87,6 +87,14 @@ class TaskList(LoginRequiredMixin, ListView):
         #in html page use : {{colour}}
         context['Tasks'] = context['Tasks'].filter(user = self.request.user)
         context['count'] = context['Tasks'].filter(complete = False).count()
+
+        #For search option
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['Tasks'] = context['Tasks'].filter(title__startswith = search_input)
+        #For the value to stay in the search box even after searching
+        #add value to the text input as "{{search_input}}"
+        context['search_input'] = search_input
         return context
 
 #Class for listing specific task

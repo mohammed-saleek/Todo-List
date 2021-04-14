@@ -9,8 +9,12 @@
   <h1>My Todo List App</h1>
 </center>
 <a href="{% url "task-create" %}">Add Task</a>
-<br>
-<br>
+
+!- Search Form
+<form method="get">
+  <input type="text" name="search-area" value = "{{ search_input}}">
+  <input type="submit" value="Search">
+</form>
 <table>
   <tr>
       <th><h3>Items</h3></th>
