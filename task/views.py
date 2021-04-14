@@ -6,8 +6,6 @@ from django.shortcuts import render, redirect
 #For reverse_url
 from django.urls import reverse_lazy
 
-
-
 #For Class Based views
 
 #For Django Authentication
@@ -37,7 +35,7 @@ from .models import Task
 # Create your views here.
 
 #for functionbased views
-#def tasklist(request):
+# def tasklist(request):
 #    return HttpResponse('To Do List')
 
 #Class based views
@@ -47,7 +45,7 @@ class CustomLoginView(LoginView):
     template_name = 'task/login.html'
     fields = '__all__'
     redirect_authenticated_user = True
-
+    #Rerouting
     def get_success_url(self):
         return reverse_lazy('tasks')
 
